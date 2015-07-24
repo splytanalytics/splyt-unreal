@@ -1,0 +1,3 @@
+[submodule "Source/ThirdParty/SplytCore/Public"]
+	path = Source/ThirdParty/SplytCore/Public
+	url = https://github.com/splytanalytics/splyt-cpp.git
