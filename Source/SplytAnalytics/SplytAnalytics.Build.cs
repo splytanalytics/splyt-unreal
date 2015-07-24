@@ -7,9 +7,6 @@ namespace UnrealBuildTool.Rules
 			PublicIncludePaths.AddRange(
 				new string[] {
 					// ... add public include paths required here ...
-					//"Runtime/ThirdParty/SplytCore/Public/platform/unreal",
-					//"Runtime/ThirdParty/SplytCore/Public/vendor",
-					//"Runtime/ThirdParty/SplytCore/Public/src",
 				}
 				);
 
