@@ -1,5 +1,5 @@
 # Splyt Unreal Engine 4 SDK
-This is the Splyt Unreal Engine 4 software development kit. This SDK should provide everything needed to integrate your Unreal Engine project with Splyt Analytics. This SDK is in Unreal's plugin format for ease of installation.
+This is the Splyt Unreal Engine 4 software development kit and should provide everything needed to integrate your Unreal Engine project with Splyt Analytics. This SDK is in Unreal's plugin format for ease of installation.
 
 This documentation does not explain how to use the Splyt Platform its self, but how to install and integrate this plugin. The plugin is built off of the core [Splyt C++ SDK](https://github.com/splytanalytics/splyt-cpp), so more in depth API information can be found there.
 
@@ -7,13 +7,13 @@ This documentation does not explain how to use the Splyt Platform its self, but 
 How to install this plugin into your Unreal project.
 
 ### Getting the Plugin
-In the base folder of your Unreal Project, create a folder named "Plugins". Using any Git program of your choice pull this repo into the Plugins folder and name the folder "SplytAnalytics". For UNIX based systems you can use a command like this:
+In the base folder of your Unreal Project, create a folder named "Plugins". Using any Git program of your choice pull this repo into the Plugins folder and name the folder "SplytAnalytics". You must also initalize and pull the Git submodules. For UNIX based systems you can use a command like this to pull the project and its submodules:
 ```
 git clone --recursive https://github.com/splytanalytics/splyt-unreal.git SplytAnalytics
 ```
 
 ### Enabling the Plugin
-Once the plugin has been installed it must be enabled in the Unreal Editor. Start the Unreal Editor with your project, and in the top left select the windown dropdown. In this dropdown you will find the Plugins window. Select this and navagate the the Analytics section, once there you can check enable for the Splyt Analytics project.
+Once the plugin has been installed it must be enabled in the Unreal Editor. Start the Unreal Editor with your project, and in the top left select the window dropdown. In this dropdown you will find the Plugins window. Select this and navagate the the Analytics section, once there you can check enable for the Splyt Analytics project.
 
 ### Building the Plugin
 This plugin will need to be added as a public dependency module to your project and built. In your project you will have a C# file called "YourProjectName.Build.cs" located in your Source folder in the base of your project. In this file all of your project dependencies will be found here. We will need to add the dependency SplytAnalytics to the PublicDependencyModuleNames. An example for a project SplytTest is shown below.
@@ -66,6 +66,15 @@ The intialization function requires at least these parameters in this order:
 - std::string context - Context of this API call.
 
 The Init function(as well as all other API functions) will throw a splyt_exception when there is some sort of error with initialization. More information on this available in the [Errors and Exceptions section](https://github.com/splytanalytics/splyt-cpp#errors-and-exceptions) in the core C++ SDK.
+
+You must provide either user_id or device_id to initalize the SDK. If you do not wish to pass one simply pass the parameter as an empty string like so.
+```c++
+//Initialize the plugin without a device ID.
+FSplytAnalytics::Get().Init("knetik-bubblepop-test", "testuser", "", "testContext");
+
+//Initialize the plugin without a user ID.
+FSplytAnalytics::Get().Init("knetik-bubblepop-test", "", "testdevice", "testContext");
+```
 
 ### Usage
 Once the plugin has been initalized we can now use the API functions provided by the core Splyt C++ SDK like so:
@@ -123,7 +132,3 @@ This plugin can be configured in the sameway that the core C++ SDK can as shown 
 
 # API Functions
 All API functions, with the exception of Init, have the exact same usage as the core C++ SDK as shown in its [API Functions section](https://github.com/splytanalytics/splyt-cpp#api-functions).
-
-**NOTE:** All API functions, with the exception of Init, return a SplytResponse. Information on how to handle this response is shown in the [Responses section](#responses).
-
-**NOTE:** All API functions throw an splyt_exception when an error occurs. Information on how to handle this is shown in the [Errors and Exceptions section](#errors-and-exceptions).
