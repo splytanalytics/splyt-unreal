@@ -1,6 +1,7 @@
 #pragma once
 
 #include "ModuleManager.h"
+#include "splyt.h"
 
 /**
  * The public interface to this module.  In most cases, this interface is only public to sibling modules
@@ -10,6 +11,8 @@ class ISplytAnalytics : public IModuleInterface
 {
 
 public:
+	splytapi::Splyt* splyt;
+	virtual void Init(std::string customer_id, std::string user_id, std::string device_id, std::string context);
 
 	/**
 	 * Singleton-like access to this module's interface.  This is just for convenience!
