@@ -80,7 +80,7 @@ FSplytAnalytics::Get().Init("knetik-bubblepop-test", "", "testdevice", "testCont
 Once the plugin has been initalized we can now use the API functions provided by the core Splyt C++ SDK like so:
 ```c++
 //Begin a transaction.
-FSplytAnalytics::Get().splyt->transaction->Begin("game_start", "init", 3600, "GameStart");
+FSplytAnalytics::Get().Splyt()->transaction->Begin("game_start", "init", 3600, "GameStart");
 ```
 More examples can be found in the [API Functions section](https://github.com/splytanalytics/splyt-cpp#api-functions) in the core C++ SDK.
 
@@ -93,7 +93,7 @@ Response Example:
 FSplytAnalytics::Get().Init("unreal-example-test", "testuser", "testdevice", "testcontext");
 
 //Get all tuning values for a user.
-splytapi::SplytResponse resp = FSplytAnalytics::Get().splyt->tuning->GetAllValues("testuser", splytapi::kEntityTypeUser);
+splytapi::SplytResponse resp = FSplytAnalytics::Get().Splyt()->tuning->GetAllValues("testuser", splytapi::kEntityTypeUser);
 
 //Get the response content.
 Json::Value content = resp.GetContent();
@@ -114,7 +114,7 @@ All API functions throw a splyt_exception when an error has occurred, these exce
 FSplytAnalytics::Get().Init("unreal-example-test", "testuser", "testdevice", "testcontext");
 
 try {
-    splytapi::SplytResponse resp = FSplytAnalytics::Get().splyt->tuning->GetAllValues("testuser", splytapi::kEntityTypeUser);
+    splytapi::SplytResponse resp = FSplytAnalytics::Get().Splyt()->tuning->GetAllValues("testuser", splytapi::kEntityTypeUser);
 
     //... Do something with the response here.
 } catch (splytapi::splyt_exception e) {

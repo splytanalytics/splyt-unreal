@@ -8,6 +8,18 @@ void FSplytAnalytics::Init(std::string customer_id, std::string user_id, std::st
     this->splyt = splytapi::Init(customer_id, user_id, device_id, context);
 }
 
+splytapi::Splyt* FSplytAnalytics::Splyt()
+{
+    if (this->splyt == NULL) {
+        splytapi::SplytResponse response(false);
+        response.SetErrorMessage("Splyt has not been initialized yet.");
+        response.SetContent(Json::Value::null);
+        throw splytapi::splyt_exception(response);
+    }
+
+    return this->splyt;
+}
+
 
 void FSplytAnalytics::StartupModule()
 {

@@ -7,6 +7,7 @@ class FSplytAnalytics : public ISplytAnalytics
 {
 public:
     virtual void Init(std::string customer_id, std::string user_id, std::string device_id, std::string context);
+    virtual splytapi::Splyt* Splyt();
 
     /** IModuleInterface implementation */
     virtual void StartupModule() override;

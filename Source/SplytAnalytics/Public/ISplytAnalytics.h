@@ -9,10 +9,12 @@
  */
 class ISplytAnalytics : public IModuleInterface
 {
+protected:
+	splytapi::Splyt* splyt;
 
 public:
-	splytapi::Splyt* splyt;
 	virtual void Init(std::string customer_id, std::string user_id, std::string device_id, std::string context);
+	virtual splytapi::Splyt* Splyt();
 
 	/**
 	 * Singleton-like access to this module's interface.  This is just for convenience!
