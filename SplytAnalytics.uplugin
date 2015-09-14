@@ -1,7 +1,7 @@
 {
 	"FileVersion": 3,
-	"Version": 1,
-	"VersionName": "1.0",
+	"Version": 2,
+	"VersionName": "2.0",
 	"FriendlyName": "Splyt Analytics",
 	"Description": "The SPLYT-Second Context Platform uniquely structures data to automate contextualization for better insight, actionability, and faster time to revenues. Easy to use query and multivariate testing tools combined with instant deployment will speed your application improvement cycles and keep your app competitive.",
 	"Category": "Analytics",

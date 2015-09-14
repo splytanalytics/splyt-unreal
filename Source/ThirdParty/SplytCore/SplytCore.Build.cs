@@ -4,11 +4,13 @@ namespace UnrealBuildTool.Rules
     {
         public SplytCore(TargetInfo Target)
         {
+            PCHUsage = PCHUsageMode.NoSharedPCHs;
+
             PrivateIncludePaths.AddRange(
                 new string[] {
                     "Runtime/SplytCore/Public/platform/unreal",
                     "Runtime/SplytCore/Public/vendor",
-                    "Runtime/SplytCore/Public/src",
+                    "Runtime/SplytCore/Public/src"
                 }
                 );
 

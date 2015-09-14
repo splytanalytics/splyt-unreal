@@ -4,6 +4,8 @@ namespace UnrealBuildTool.Rules
 	{
 		public SplytAnalytics(TargetInfo Target)
 		{
+			PCHUsage = PCHUsageMode.NoSharedPCHs;
+
 			PublicIncludePaths.AddRange(
 				new string[] {
 					// ... add public include paths required here ...
@@ -13,6 +15,8 @@ namespace UnrealBuildTool.Rules
 			PrivateIncludePaths.AddRange(
 				new string[] {
 					"Runtime/SplytAnalytics/Private",
+					"Engine",
+                    "HTTP"
 					// ... add other private include paths required here ...
 				}
 				);
@@ -20,8 +24,10 @@ namespace UnrealBuildTool.Rules
 			PublicDependencyModuleNames.AddRange(
 				new string[]
 				{
-					"Core",
-					"SplytCore",
+                    "Core",
+                    "Engine",
+                    "HTTP",
+					"SplytCore"
 					// ... add other public dependencies that you statically link with here ...
 				}
 				);
