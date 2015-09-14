@@ -65,7 +65,7 @@ The intialization function requires at least these parameters in this order:
 - std::string device_id - Optional when providing user_id.
 - std::string context - Context of this API call.
 
-The Init function(as well as all other API functions) will throw a splyt_exception when there is some sort of error with initialization. More information on this available in the [Errors and Exceptions section](https://github.com/splytanalytics/splyt-cpp#errors-and-exceptions) in the core C++ SDK.
+The Init function(as well as all other synchronous API functions) will throw a splyt_exception when there is some sort of error with initialization. More information on this available in the [Errors and Exceptions section](https://github.com/splytanalytics/splyt-cpp#errors-and-exceptions) in the core C++ SDK.
 
 You must provide either user_id or device_id to initalize the SDK. If you do not wish to pass one simply pass the parameter as an empty string like so.
 ```c++
@@ -82,10 +82,14 @@ Once the plugin has been initalized we can now use the API functions provided by
 //Begin a transaction.
 FSplytAnalytics::Get().Splyt()->transaction->Begin("game_start", "init", 3600, "GameStart");
 ```
+There are also asynchronous versions for most API functions that take a function callback as the first argument.
+
 More examples can be found in the [API Functions section](https://github.com/splytanalytics/splyt-cpp#api-functions) in the core C++ SDK.
 
 ### Responses
-All API functions, with the exception of Init, return an instance of the SplytResponse class that contains content returned from the network call. The content is an instance of the Json::Value class from the [JsonCpp library](https://github.com/open-source-parsers/jsoncpp). Documentation for the use of this class can be found [here](https://github.com/open-source-parsers/jsoncpp/wiki).
+
+##### Synchronous Functions
+All synchronous API functions, with the exception of Init, return an instance of the SplytResponse class that contains content returned from the network call. The content is an instance of the Json::Value class from the [JsonCpp library](https://github.com/open-source-parsers/jsoncpp). Documentation for the use of this class can be found [here](https://github.com/open-source-parsers/jsoncpp/wiki).
 
 Response Example:
 ```c++
@@ -106,9 +110,26 @@ std::cout << "testval value: " + testval << std::endl;
 ```
 Any errors that occur will throw a splyt_exception, this can be handled as shown below.
 
+##### Asynchronous Functions
+All asynchronous API functions can be identified by the suffix Async. These functions do not return anything, instead a callback can be passed as the first argument to get the response.
+```c++
+void TestCallback(splytapi::SplytResponse response)
+{
+    //Do something with the response.
+}
+
+//Begin a transaction asynchronously.
+FSplytAnalytics::Get().Splyt()->transaction->BeginAsync(&TestCallback, "testtransaction", "testcategory", 3600, "testContext");
+```
+If you are not interested in seeing the result you can simply pass NULL as the callback argument like so.
+```c++
+//Begin a transaction asynchronously without a callback.
+splyt->transaction->BeginAsync(NULL, "testtransaction", "testcategory", 3600, "testContext");
+```
+Any errors that occur will be stored in the splytapi::SplytResponse instance that is passed to the callback, exceptions will only be thrown for configuration issues.
 
 ### Errors and Exceptions
-All API functions throw a splyt_exception when an error has occurred, these exceptions contain a SplytResponse holding error information needed to understand the issue. An example for handling these exceptions is shown below.
+All synchronous API functions throw a splyt_exception when any error has occurred and asynchronous API functions throw a splyt_exception when a fatal error has occurred(Ex. a configuration issue.). Exceptions contain a SplytResponse holding error information needed to understand the issue. An example for handling these exceptions is shown below.
 ```c++
 //Initalize the plugin.
 FSplytAnalytics::Get().Init("unreal-example-test", "testuser", "testdevice", "testcontext");
